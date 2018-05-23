@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员</title>
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            color:#333333;
+            border-width: 1px;
+            border-color: #999999;
+            border-collapse: collapse;
+        }
+
+        table thead td{
+            color:white;
+            border:1px solid #888888;
+            background:#666666;
+            height:30px;
+            line-height:30px;
+            text-align:center;
+        }
+
+        table tr {
+            background-color:#d4e3e5;
+        }
+
+        table td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #a9c6c9;
+            text-align:center;
+        }
+    </style>
+</head>
+<script>
+    $(document).ready(function () {
+        fetchListData();
+    });
+
+    function User(id, userName, password, nicheng) {
+        var o = {};
+        o.id = id;
+        o.userName = userName;
+        o.password = password;
+        o.nicheng = nicheng;
+
+        return o;
+    }
+
+    function fetchListData(data) {
+        //补充获取列表数据代码
+        // if (data != undefined) {
+        //     alert(data.message);
+        // }
+        request({}, "POST", "/user/userList", refreshListData);
+    }
+
+    function refreshListData(data) {
+        var tbody = $("#userTable tbody");
+        tbody.html("");
+        $(data).each(function (index, user) {
+            var row = "<tr>" +
+                "<td width='30px'>" + user.id + "</td>" +
+                "<td width='200px'>" + user.userName + "</td>" +
+                "<td width='200px'>" + user.password + "</td>" +
+                "<td width='200px'>" + user.nicheng + "</td>" +
+                "<td width='100px'>" +
+                "<input type='button' value='删除' onclick='deleteUser(" + user.id + ")'/>" +
+                "</td>" +
+                "</tr>";
+            tbody.append(row);
+        });
+    }
+
+
+    function deleteUser(id) {
+        //补充向表删除数据的代码
+        var user = new User(id);
+        // console.log("user:",user);
+        // console.log("id:",id);
+        // console.log("userId:",user.id);
+        request(user, "POST", "/user/userDelete",fetchListData );
+    }
+
+
+    function request(object, method, methodURL, successFunction) {
+        //补充ajax调用API接口实现通信的代码
+        $.ajax({
+            cache: true,
+            type: method,
+            datatype: "json",
+            contentType: "application/json",
+            url: methodURL,
+            data: JSON.stringify(object),
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status + "\r\n" + XMLHttpRequest.readyState + "\r\n" + textStatus);
+            },
+            success: successFunction
+        });
+    }
+
+</script>
+<body>
+<h1>管理员</h1>
+<table id="userTable">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>用户名</th>
+        <th>密码</th>
+        <th>昵称</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+</body>
+</html>

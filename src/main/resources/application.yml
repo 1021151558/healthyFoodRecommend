@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/healthy?characterEncoding=utf8&useSSL=true
+    username: root
+    password: A15180396064
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+server:
+  servlet:
+    context-path: /user
+

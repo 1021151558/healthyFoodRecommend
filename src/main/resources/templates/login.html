@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户登录</title>
+    <link rel="stylesheet" href="css/style1.css" />
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    <style>
+
+        /*.error{*/
+            /*color: red;*/
+            /*font-size: 25px;*/
+            /*position: absolute;*/
+            /*bottom: 50px;*/
+        /*}*/
+        body {
+            background: url("images/bg.jpg");
+        }
+
+    </style>
+</head>
+<script>
+    $().ready(function () {
+       $("#login").validate({
+           rules: {
+               username: {
+                   required: true,
+                   minlength: 6,
+                   maxlength: 6
+               },
+               password: {
+                   required: true,
+                   minlength: 6,
+                   maxlength: 6
+               }
+           },
+           messages: {
+               username: {
+                   required: "请输入账号",
+                   minlength: "账号长度为6",
+                   maxlength: "账号长度为6"
+               },
+               password: {
+                   required: "请输入密码",
+                   minlength: "密码长度为6",
+                   maxlength: "密码长度为6"
+               }
+           }
+       });
+    });
+</script>
+<body>
+<div class="pane">
+    <p>WElCOME</p>
+    <script th:utext="${CG}"></script>
+    <form method="post" action="/user/userLogin" id="login">
+        <input type="text" name="username" id="username" placeholder="用户名" />
+        <input type="password" name="password" id="password" placeholder="密码" />
+        <button type="submit" class="bt1" value="登录">登录</button>
+         <span class="error" th:text="${error}"></span>
+    </form>
+    <a href="/user/register" class="reg">新用户注册</a><a href="/user/upPassword" class="reg">修改密码</a>
+</div>
+<div id="d1">
+    <canvas id="canvas"></canvas>
+</div>
+
+</body>
+
+</html>

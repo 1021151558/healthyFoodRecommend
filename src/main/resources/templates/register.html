@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>用户注册</title>
+    <link rel="stylesheet" href="css/style1.css" />
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    <style type="text/css">
+        body{
+            background: url(images/123.jpg) repeat scroll top left;
+        }
+
+        #load{
+            position: relative;
+            bottom: -50px;
+            margin: auto;
+            color: chartreuse;
+        }
+
+    </style>
+</head>
+<body>
+<script>
+    $().ready(function () {
+       $("#register").validate({
+           rules:{
+               username: {
+                   required: true,
+                   minlength: 6,
+                   maxlength: 6
+               },
+               password: {
+                   required: true,
+                   minlength: 6,
+                   maxlength: 6
+               },
+               cfPassword: {
+                   required: true,
+                   minlength: 6,
+                   maxlength: 6,
+                   equalTo: "#password"
+               },
+               nicheng: {
+                   required: true,
+               }
+           },
+           messages: {
+               username: {
+                   required: "请输入账号",
+                   minlength: "账号长度为6",
+                   maxlength: "账号长度为6"
+               },
+               password: {
+                   required: "请输入密码",
+                   minlength: "密码长度为6",
+                   maxlength: "密码长度为6"
+               },
+               cfPassword: {
+                   required: "请输入密码",
+                   minlength: "密码长度为6",
+                   maxlength: "密码长度为6",
+                   equalTo: "两次密码输入不一致"
+               },
+               nicheng: {
+                   required: "请输入昵称"
+               }
+           }
+       });
+
+    });
+</script>
+
+<div class="pane">
+    <p>WElCOME</p>
+    <form action="/user/addregister" id="register" method="post">
+        <input type="text" name="username" id="username" placeholder="用户名" autocomplete="off"/>
+        <input type="password" name="password" id="password" placeholder="密码" />
+        <input type="password" name="cfPassword"  id="cfPassword" placeholder="确认密码" />
+        <input type="text" name="nicheng"  id="nicheng" placeholder="昵称" />
+        <button type="submit" class="bt1">注册</button>
+        <span class="error" th:text="${CZ}"></span>
+    </form>
+    <a href="/user/" class="reg" id="load">登录</a>
+</div>
+</body>
+
+</html>

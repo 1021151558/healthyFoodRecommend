@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>健康饮食推荐助手</title>
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .context {
+            height: 95%;
+        }
+
+        .header {
+            width: 100%;
+            height: 120px;
+            background: -webkit-linear-gradient(top left, #C1F8EF 0%, #EEBBEE 50%, #77A0DD 100%);
+        }
+
+        .title {
+            position: absolute;
+            /*	width: 16%;*/
+            height: 60px;
+            /*color: red;*/
+            /*font-size: 20px;*/
+            margin: 30px 70px;
+            overflow: hidden;
+        }
+
+        .form1 {
+            width: 500px;
+            height: 120px;
+            margin: auto;
+        }
+
+        .textbox1 {
+            width: 300px;
+            height: 10px;
+            background: lightcyan;
+            margin: 30px auto 10px 40px;
+            padding: 20px;
+            font-size: 18px;
+            border: 1px solid black;
+            border-radius: 10px;
+            opacity: 0.8;
+        }
+
+        .bt {
+            width: 100px;
+            height: 50px;
+            background: salmon;
+            margin: auto;
+            font-size: 19px;
+            border-radius: 10px;
+        }
+
+        .nav {
+            height: 1100px;
+            width: 100%;
+            background: lightblue;
+        }
+
+        .context {
+            width: 90%;
+            /*background: wheat;*/
+            margin: auto;
+        }
+
+        .smalltitle {
+            width: 100%;
+            height: 40px;
+            color: black;
+            text-align: center;
+        }
+
+
+      .liebiao{
+            width: 100%;
+            height: 80px;
+            margin: auto;
+        }
+
+      .liebiao li{
+            width: 13%;
+            height: 80px;
+            float: left;
+            text-align: center;
+            line-height: 80px;
+            font-size: 18px;
+            list-style: none;
+        }
+
+        li:hover {
+            color: red;
+        }
+
+        .tizhi li {
+            list-style: none;
+            float: left;
+            height: 80px;
+            /*width: 80px;*/
+
+            line-height: 80px;
+            text-align: center;
+            font-size: 18px;
+            margin-left: 30px;
+        }
+
+        .tizhi {
+            margin: auto;
+            height: 80px;
+        }
+
+        .footer {
+            width: 100%;
+            height: 50px;
+            background: gray;
+            position: relative;
+            bottom: 0px;
+        }
+
+        .none {
+            display: none;
+        }
+
+        .meirong1 {
+            width: 1100px;
+            height: 736px;
+            border: solid 2px red;
+            text-align: center;
+            align-items: center;
+            margin: auto;
+        }
+
+        .img {
+            float: left;
+            width: 232px;
+            height: 360px;
+            margin-left: 20px;
+            position: relative;
+            border: white 1px solid;
+        }
+
+        .foodWork {
+            float: right;
+            position: absolute;
+            top: 20px;
+            left: -5px;
+            background-color: lawngreen;
+            background-size: 50px 40px;
+            font-family: Arial;
+            font-size: 20px;
+        }
+
+        .foodName {
+            position: relative;
+            height: 60px;
+        }
+
+        .foodPopularity {
+            position: relative;
+            margin-top: 21px;
+            height: 60px;
+        }
+
+        .foodCollection {
+            width: 90px;
+            height: 30px;
+            position: relative;
+            margin-right: 5px;
+
+        }
+
+        .meirongPages {
+            position: relative;
+            bottom: 0px;
+            left: 30%;
+            color: #5b8dff;
+        }
+
+        #userInfo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        #userInfo td {
+            margin-left: 10px;
+        }
+
+        #userNicheng {
+            color: red;
+        }
+
+        .deTable {
+            margin: auto;
+        }
+
+        .deTable td {
+            margin-left: 25px;
+        }
+
+        .input {
+            height: 25px;
+        }
+
+        .btt {
+            width: 50px;
+            height: 30px;
+        }
+
+        #healthy {
+            color: red;
+        }
+
+
+
+
+
+
+
+
+        #dietitian{
+            position: relative;
+            width: 800px;
+            height: 800px;
+            margin-top: 50px;
+            margin-left: 20%;
+        }
+        #dietitianList{
+            float: left;
+
+        }
+        #dietitianInfo{
+            float: right;
+            background-color: white;
+            margin-left: 10px;
+            width: 600px;
+            height: 700px;
+        }
+        #infopeople b,#infopeople p{
+            margin: 10px auto 10px auto;
+        }
+        #infopeople{
+            margin-top: 20px;
+            width: 300px;
+        }
+        #infopeople b{
+            font-size: 20px;
+            color: blue;
+        }
+        #infopeople p{
+            font-family: STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑";
+        }
+
+        /* Border styles */
+        #tablepeople thead, #tablepeople tr {
+            border-top-width: 1px;
+            border-top-style: solid;
+            background-color: rgb(81, 130, 187);
+        }
+        #tablepeople {
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: rgb(230, 189, 189);
+        }
+
+        /* Padding and font style */
+        #tablepeople td, #tablepeople th {
+            padding: 5px 20px;
+            font-size: 20px;
+            font-family: Verdana;
+            color: rgb(177, 106, 104);
+            text-align: center;
+        }
+        #tablepeople td{
+            font-size: 15px;
+        }
+
+        /*background: rgb(238, 211, 210)
+         Alternating background colors */
+
+        #tablepeople tr {
+            background: #FFF
+        }
+
+
+
+    </style>
+</head>
+
+<body onload="homePages()">
+<div class="header">
+    <h1 class="title">健康菜品推荐助手</h1>
+    <div class="form1">
+        <input type="text" id="foodSearch" class="textbox1" placeholder="请输入菜名"/>
+        <button class="bt" onclick="foodSearch()">搜索</button>
+        <script type="text/javascript" src="js/foodSearch.js"></script>
+    </div>
+    <table id="userInfo">
+        <tr>
+            <td><span th:text="${nicheng}" id="userNicheng"></span></td>
+            <td>,你好</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><a href="/user/"><u>注销</u></a></td>
+        </tr>
+
+
+    </table>
+</div>
+
+<div class="nav">
+    <ul id="liebiao" class="liebiao">
+        <li>首页</li>
+        <li>健康饮食推荐</li>
+        <li>人群膳食</li>
+        <li>体质调理</li>
+        <li>咨询营养师</li>
+        <li><form id="dayshuo" method="post">美食心得</form></li>
+        <li>我的收藏</li>
+    </ul>
+    <script>
+        $("#dayshuo").attr("action","/user/shuoshuo?nicheng="+$("#userNicheng").text());
+
+        $("#dayshuo").click(function () {
+           $("#dayshuo").submit();
+        });
+
+    </script>
+    <!--<script src="js/base64.js"></script>-->
+    <script type="text/javascript" src="js/liebiao.js"></script>
+    <section id="forSearch" class="context none">
+        <div class="meirong1" id="homeSearch"></div>
+        <table class="meirongPages" id="homeSearchPages">
+            <tr>
+                <td width="130px">当前第<p id="homeSearchNowPage"></p>页</td>
+                <td width="90px"><a>首页</a></td>
+                <td width="90px"><a>上一页</a></td>
+                <td width="90px"><a>下一页</a></td>
+                <td width="90px"><a>尾页</a></td>
+                <td width="130px">总共<p id="homeSearchAllPages"></p>页</td>
+            </tr>
+        </table>
+    </section>
+    <script type="text/javascript" src="js/homeSearchPages.js"></script>
+    <section id="homePage" class="context ">
+        <br/>
+        <h1 class="smalltitle">饮食小常识</h1>
+        <div class="meirong1" id="home"></div>
+
+        <table class="meirongPages" id="homePages">
+            <tr>
+                <td width="130px">当前第<p id="homeNowPage"></p>页</td>
+                <td width="90px"><a>首页</a></td>
+                <td width="90px"><a>上一页</a></td>
+                <td width="90px"><a>下一页</a></td>
+                <td width="90px"><a>尾页</a></td>
+                <td width="130px">总共<p id="homeAllPages"></p>页</td>
+            </tr>
+        </table>
+
+    </section>
+    <script  type="text/javascript" src="js/homePages.js" >
+
+    </script>
+
+    <section id="delicious" class="context none">
+        <br/>
+        <h1 class="smalltitle" id="tuijianH">美食推荐</h1>
+        <table class="deTable">
+            <tr>
+                <td>身高：</td>
+                <td><input type="number" min="1" id="height" class="input"/><span>m</span></td>
+                <td>体重：</td>
+                <td><input type="number" min="1" id="weight" class="input"/><span>kg</span></td>
+                <td>偏好：</td>
+                <td><select id="select">
+                    <option value="营养" selected>营养</option>
+                    <option value="养身">养身</option>
+                    <option value="清淡">清淡</option>
+                    <option value="强壮">强壮</option>
+                </select></td>
+                <td>BMI:</td>
+                <td colspan="2">
+                    <progress max="100" value="0" id="bmi"></progress>
+                </td>
+                <td>
+                    <button class="btt" onclick="delicious()">提交</button>
+                </td>
+                <td>健康状态：<em id="healthy"></em></td>
+            </tr>
+        </table>
+        <script type="text/javascript" src="js/delicious.js">
+
+        </script>
+        <div class="meirong1" id="deliciousFood">
+        </div>
+        <table class="meirongPages" id="deliciousPages">
+            <tr>
+                <td width="130px">当前第<p id="deliciousNowPage"></p>页</td>
+                <td width="90px"><a>首页</a></td>
+                <td width="90px"><a>上一页</a></td>
+                <td width="90px"><a>下一页</a></td>
+                <td width="90px"><a>尾页</a></td>
+                <td width="130px">总共<p id="deliciousAllPages"></p>页</td>
+            </tr>
+        </table>
+    </section>
+    <script type="text/javascript" src="js/deliciousPages.js">
+
+    </script>
+    <section id="peopleType" class="context none">
+        <div class="context">
+            <br/>
+            <h1 class="smalltitle">人群膳食</h1>
+            <section class="info">
+                <header>
+                    <ul id="typeOfPerson" class="tizhi">
+                        <li> 孕妇</li>
+                        <li> 产妇</li>
+                        <li> 幼儿</li>
+                        <li> 学龄期</li>
+                        <li> 青少年</li>
+                        <li> 老人</li>
+                        <li> 高温环境作业人群</li>
+                        <li> 低温环境作业人群</li>
+                        <li> 接触化学毒素人员</li>
+                        <li> 运动员</li>
+                    </ul>
+                </header>
+                <section class="mid" id="personFoodWork">
+                    <div id="person" class="meirong1"></div>
+
+                    <table class="meirongPages" id="personPages">
+                        <tr>
+                            <td width="90px"><p id="personNowName"></p></td>
+                            <td width="130px">当前第<p id="personNowPage"></p>页</td>
+                            <td  width="90px"><a>首页</a></td>
+                            <td  width="90px"><a>上一页</a></td>
+                            <td  width="90px"><a>下一页</a></td>
+                            <td  width="90px"><a>尾页</a></td>
+                            <td width="130px">总共<p id="personAllPages"></p>页</td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+        </div>
+    </section>
+    <script type="text/javascript" src="js/typeOfPerson.js"></script>
+    <section id="myMenu" class="context none">
+        <div class="context">
+            <br/>
+            <h1 class="smalltitle">体质调理</h1>
+            <section class="info">
+                <header>
+                    <ul id="tizhi" class="tizhi">
+                        <li> 美容</li>
+                        <li> 减肥</li>
+                        <li>消化不良</li>
+                        <li>补虚养身</li>
+                        <li>滋阴补肾</li>
+                        <li>清热解毒</li>
+                        <li>防暑</li>
+                        <li>益智补脑</li>
+                        <li>营养不良</li>
+                        <li>糖尿病</li>
+                        <li>高血压</li>
+                    </ul>
+                </header>
+                <section class="mid" id="foodWork">
+                    <div id="meirong1" class="meirong1"></div>
+
+                    <table class="meirongPages" id="meirongPages">
+                        <tr>
+                            <td width="90px"><p id="nowName"></p></td>
+                            <td width="130px">当前第<p id="nowPage"></p>页</td>
+                            <td id="page0" width="90px"><a>首页</a></td>
+                            <td id="page-1" width="90px"><a>上一页</a></td>
+                            <td id="page+1" width="90px"><a>下一页</a></td>
+                            <td id="pageLast" width="90px"><a>尾页</a></td>
+                            <td width="130px">总共<p id="allPages"></p>页</td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+        </div>
+
+    </section>
+    <script type="text/javascript" src="js/tizhi.js"></script>
+    <section id="dietitian" class="context none">
+        <div id="dietitianList">
+            <table id="tablepeople">
+                <th bgcolor="#1E90FF" style="color: white;">营养师列表</th>
+                <tr style="background: rgb(238, 211, 210)"><td value="1905471686">上官之博</td></tr>
+                <tr><td value="1021151558">孔永靖</td></tr>
+                <tr><td value="917055347">梁根福</td></tr>
+                <tr><td value="1300377561">杜李兴</td></tr>
+            </table>
+        </div>
+        <div id="dietitianInfo">
+            <h3>营养师信息</h3><hr />
+            <center><img id="imgpeople" src="images/0.jpg" width="160px" height="200px"/>
+                <br />
+                <div id="infopeople">
+                    <b>姓名</b>
+                    <p id="namepeople">上官之博</p>
+                    <b>基本信息</b>
+                    <p>营养师（英文：dietitian）职业的出现，是适应社会健康的需求而产生的。营养师的职业综合了厨师、保健师、医务、中医、心理师、保健品销售、管理员等职业的特点于一身，是比较综合的职业。他们不但是食物的专家，更是营养检测、营养强化、营养评估等领域的专家，帮助人们获取健康。</p>
+                </div>
+                <a id="qq" href="tencent://message/?uin=1905471686&Site=sc.chinaz.com&Menu=yes">QQ咨询营养师</a>
+            </center>
+
+        </div>
+
+        <script>
+            var img=document.getElementById("imgpeople")
+            var table=document.getElementById("tablepeople");
+            var td=table.getElementsByTagName("td");
+
+
+            for(var i=0;i<td.length;i++){
+                td[i].onclick=function(){
+                    for(var j=0;j<td.length;j++){
+                        if(this==td[j]){
+                            img.src="images/"+j+".jpg";
+                            td[j].style.background="rgb(238, 211, 210)";
+                            var name=document.getElementById("namepeople");
+                            name.innerText=td[j].innerText;
+                            var a=document.getElementById("qq");
+//  						alert(td[j].getAttribute("value"));
+                            a.href="tencent://message/?uin="+td[j].getAttribute("value")+"&Site=sc.chinaz.com&Menu=yes";
+                            //alert(a);
+                        }else{
+                            td[j].style.background="white";
+                        }
+                    }
+                }
+            }
+        </script>
+    </section>
+    <section id="shuoshuo" class="context none">
+
+    </section>
+
+
+
+    <section id="myCollection" class="context none">
+        <br/>
+        <h1 class="smalltitle">我的收藏</h1>
+        <div class="meirong1" id="collectionFood">
+        </div>
+        <table class="meirongPages" id="collectionPages">
+            <tr>
+                <td width="130px">当前第<p id="collectionNowPage"></p>页</td>
+                <td id="collectionPage0" width="90px"><a>首页</a></td>
+                <td id="collectionPage-1" width="90px"><a>上一页</a></td>
+                <td id="collectionPage+1" width="90px"><a>下一页</a></td>
+                <td id="collectionPageLast" width="90px"><a>尾页</a></td>
+                <td width="130px">总共<p id="collectionAllPages"></p>页</td>
+            </tr>
+        </table>
+    </section>
+    <script type="text/javascript" src="js/collectionPages.js"></script>
+</div>
+
+<div class="footer">
+    <p align="center"> copyright:Jxufe.com <br/> email:1021151558@qq.com</div>
+</div>
+</body>
+
+
+</html>
