@@ -1,7 +1,7 @@
 package com.example.ccctest.controller;
 
-import com.example.ccctest.dao.UserDao;
 import com.example.ccctest.model.UserEntity;
+import com.example.ccctest.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private UserDao userDao;
+    private UserServiceImpl userDao;
 
     @RequestMapping(value = "/userList",method = RequestMethod.POST)
     @ResponseBody
@@ -30,7 +30,7 @@ public class AdminController {
     public String delete(@RequestBody UserEntity userEntity){
 
         System.out.println(userEntity.getId());
-        UserEntity user = userDao.findById(userEntity.getId()).get();
+        UserEntity user = userDao.findById(userEntity.getId());
         userDao.delete(user);
         return "删除成功";
     }

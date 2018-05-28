@@ -2,6 +2,7 @@ package com.example.ccctest.service;
 
 import com.example.ccctest.model.UserEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -12,6 +13,10 @@ import java.util.Optional;
 public interface UserService {
 
     UserEntity findByUserNameAndPassword(String userName, String password);
-
+    UserEntity findByUserName(String userName);
+    UserEntity findByNicheng(String nicheng);
+    UserEntity findById(Integer id);
     UserEntity save(UserEntity userEntity);
+    List<UserEntity> findAll();
+    void delete(UserEntity userEntity);
 }

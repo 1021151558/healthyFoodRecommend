@@ -1,8 +1,8 @@
 package com.example.ccctest.controller;
 
-import com.example.ccctest.dao.UserDao;
 import com.example.ccctest.model.UserEntity;
 
+import com.example.ccctest.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -10,7 +10,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
@@ -23,11 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginController {
 
     @Autowired
-    private UserDao userDao;
-
-
-
-
+    private UserServiceImpl userDao;
 
 
     @RequestMapping("/")
@@ -122,11 +117,6 @@ public class LoginController {
     }
 
 
-//    @RequestMapping(value = "/admin")
-//    public String admin(){
-//
-//        return "admin";
-//    }
 
 
 

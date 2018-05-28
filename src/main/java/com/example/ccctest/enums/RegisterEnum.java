@@ -13,6 +13,7 @@ public enum RegisterEnum {
 
     SUCCESS(0,"注册成功"),
     FAIL(1,"注册失败"),
+    DELETE(2,"删除成功"),
 
     ;
     private Integer code;

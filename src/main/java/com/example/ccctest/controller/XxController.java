@@ -3,6 +3,7 @@ package com.example.ccctest.controller;
 import com.example.ccctest.dao.*;
 import com.example.ccctest.model.*;
 
+import com.example.ccctest.service.impl.*;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,22 +26,22 @@ import java.util.List;
 public class XxController {
 
     @Autowired
-    private AllFoodDao allFoodDao;
+    private AllFoodServiceImpl allFoodDao;
 
     @Autowired
-    private CollectionFoodDao collectionFoodDao;
+    private CollectionFoodServiceImpl collectionFoodDao;
 
     @Autowired
-    private ChangshiDao changshiDao;
+    private ChangshiServiceImpl changshiDao;
 
     @Autowired
-    private SearchFoodDao searchFoodDao;
+    private SearchFoodServiceImpl searchFoodDao;
 
     @Autowired
-    private UserDao userDao;
+    private UserServiceImpl userDao;
 
     @Autowired
-    private ShuoshuoDao shuoshuoDao;
+    private ShuoshuoServiceImpl shuoshuoDao;
 
 
     @RequestMapping(value = "/meirong", method = RequestMethod.POST)
@@ -58,7 +59,7 @@ public class XxController {
     @ResponseBody
     public String collectionFood(@RequestParam("foodId") Integer foodId, @RequestParam("nicheng") String nicheng) {
 
-        AllFood allFood = allFoodDao.findById(foodId).get();
+        AllFood allFood = allFoodDao.findById(foodId);
         UserEntity userEntity = userDao.findByNicheng(nicheng);
 
         if (userEntity != null) {
@@ -117,7 +118,7 @@ public class XxController {
     @RequestMapping(value = "/changshi", method = RequestMethod.GET)
     public String changshi(ModelMap modelMap, @RequestParam("foodId") Integer foodId) {
 
-        Changshi changshi = changshiDao.findById(foodId).get();
+        Changshi changshi = changshiDao.findById(foodId);
         modelMap.put("title", changshi.getTitle());
         modelMap.put("content", changshi.getContent());
 
@@ -127,7 +128,7 @@ public class XxController {
     @RequestMapping(value = "/foodMethod", method = RequestMethod.GET)
     public String foodMethod(ModelMap modelMap, @RequestParam("foodId") Integer foodId) {
 
-        AllFood allFood = allFoodDao.findById(foodId).get();
+        AllFood allFood = allFoodDao.findById(foodId);
         modelMap.put("foodName", allFood.getFoodName());
         modelMap.put("content", allFood.getFoodMethod());
         return "foodMethod";
@@ -213,10 +214,6 @@ public class XxController {
     public String shuoshuo(ModelMap modelMap,@RequestParam("nicheng") String nicheng){
 
         System.out.println("nicheng:" +nicheng);
-
-//        String name = new String(Base64.decodeBase64(nicheng));
-
-//        System.out.println("name:" +name);
 
         UserEntity userEntity = userDao.findByNicheng(nicheng);
 
