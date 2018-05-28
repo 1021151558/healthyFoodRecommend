@@ -19,4 +19,5 @@ public interface CollectionFoodService {
 
     void save(CollectionFood collectionFood);
 
+    void delete(CollectionFood collectionFood);
 }

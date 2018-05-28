@@ -1,6 +1,6 @@
 var ms = document.getElementById("deliciousPages").getElementsByTagName("a");
 
-for (var s = 0; s < ms.length; s++) {
+for (var s = 0; s < ms.length ; s++) {
     ms[s].onclick = function () {
         for (var k = 0; k < ms.length; k++) {
             if (ms[k] == this) {

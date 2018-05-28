@@ -36,5 +36,10 @@ public class CollectionFoodServiceImpl implements CollectionFoodService {
         collectionFoodDao.save(collectionFood);
     }
 
+    @Override
+    public void delete(CollectionFood collectionFood) {
+        collectionFoodDao.delete(collectionFood);
+    }
+
 
 }

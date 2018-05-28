@@ -82,6 +82,33 @@ public class XxController {
         return "已收藏";
     }
 
+
+
+    @RequestMapping(value = "/deleteFood", method = RequestMethod.POST)
+    @ResponseBody
+    public Page<CollectionFood> deleteFood(@RequestParam("foodId") Integer foodId, @RequestParam("nicheng") String nicheng,@RequestParam("pageNum") Integer pageNum,Pageable pageable) {
+
+        UserEntity userEntity = userDao.findByNicheng(nicheng);
+
+        if (userEntity != null) {
+            if (collectionFoodDao.findById(foodId).isPresent()) {
+                CollectionFood collectionFood = collectionFoodDao.findById(foodId).get();
+                collectionFoodDao.delete(collectionFood);
+            }
+        }
+        pageable = new PageRequest(pageNum, 8);
+        Page<CollectionFood> collectionFoodPage = collectionFoodDao.findAllByUserId(userEntity.getId(), pageable);
+
+
+
+        return collectionFoodPage;
+    }
+
+
+
+
+
+
     @RequestMapping(value = "/myCollection", method = RequestMethod.POST)
     @ResponseBody
     public Page<CollectionFood> myCollection(Pageable pageable, @RequestParam("pageNum") Integer pageNum, @RequestParam("nicheng") String nicheng) {

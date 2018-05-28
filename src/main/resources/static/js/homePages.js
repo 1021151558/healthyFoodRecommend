@@ -27,7 +27,7 @@ var ps = document.getElementById("homePages").getElementsByTagName("a");
 
 for (var s = 0; s < ps.length; s++) {
     ps[s].onclick = function () {
-        for (var k = 0; k < ps.length; k++) {
+        for (var k = 0; k < ps.length ; k++) {
             if (ps[k] == this) {
                 var num = 0;
                 var nowPage = parseInt($("#homeNowPage").text()) - 1;

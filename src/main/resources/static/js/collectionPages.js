@@ -24,29 +24,58 @@ for (var s = 0; s < ds.length; s++) {
                     num = totalPages - 1;
                 }
 
+
                 $.ajax({
                     type: "POST",
                     url: "/user/myCollection?pageNum="+num+"&nicheng="+$("#userNicheng").text(),
                     dataType: "json",
                     success: function (data) {
-                        var tt = $("#collectionFood");
-                        tt.html("");
-                        $(data.content).each(function (index, food) {
-                            var row = "<div class='img'>" + "<a target='_blank' href='/user/foodMethod?foodId=" +food.id+ "'><img src='" + food.foodIcon + "'/></a>"
-                                + "<span class='foodWork'>" + food.foodWork + "</span>"
-                                + "<span class='foodName'>" + food.foodName + "</span><br>"
-                                + "<span class='foodPopularity'>" + food.foodPopularity + "</span><br>"
-                                + "<input type='button' class='foodCollection' value='已收藏' name='" + food.id + "'/> "
-                                + "</div>";
-                            tt.append(row);
 
-                        });
-                        var nowPage = $("#collectionNowPage");
-                        nowPage.text(data.number + 1);
-                        var totalPages = $("#collectionAllPages");
-                        totalPages.text(data.totalPages);
+                        refreshCollection(data);
                     }
                 });
+                function refreshCollection(data) {
+
+
+                    var collectionFood = $("#collectionFood");
+                    collectionFood.html("");
+                    $(data.content).each(function (index, food) {
+                        var row = "<div class='img'>" + "<a target='_blank' href='/user/foodMethod?foodId=" + food.id + "'><img src='" + food.foodIcon + "'/></a>"
+                            + "<span class='foodWork'>" + food.foodWork + "</span>"
+                            + "<span class='foodName'>" + food.foodName + "</span><br>"
+                            + "<span class='foodPopularity'>" + food.foodPopularity + "</span><br>"
+                            + "<input type='button' class='foodCollection' value='删除' name='" + food.id + "'/> "
+                            + "</div>";
+                        collectionFood.append(row);
+                    });
+
+                    $(".foodCollection").click(function () {
+
+                        var id = $(this).attr("name");
+                        console.log(id);
+                        var nicheng = $("#userNicheng").text();
+                        var collectionPageNum = parseInt($("#collectionNowPage").text()) - 1;
+                        if ($(this).val() == "删除") {
+                            $.ajax({
+                                type: "POST",
+                                url: "/user/deleteFood?foodId=" + id + "&nicheng=" + nicheng+"&pageNum="+ collectionPageNum,
+                                dataType: "json",
+                                success: function (data) {
+                                    refreshCollection(data);
+
+                                }
+                            });
+
+
+                        }
+                    });
+
+                    var nowPage = $("#collectionNowPage");
+                    nowPage.text(data.number + 1);
+                    var totalPages = $("#collectionAllPages");
+                    totalPages.text(data.totalPages);
+
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ body {
 .pane {
 	width: 100%;
 	height: 400px;
-	margin: 150px auto;
+	margin: 100px auto;
 	position: absolute;
 	/*background:wheat ;*/
 	z-index: 2;
@@ -25,13 +25,16 @@ form {
 	/*position: absolute;*/
 	/*position: relative;*/	
 	/*background:wheat ;*/
+	text-align: center;
 }
 
-.error{
+.error{		
 	color: red;
-	font-size: 25px;
-	position: absolute;
-	bottom: 50px;
+	font-size: 16px;
+	text-align:center;		
+/*	position: absolute;*/
+    /*bottom: 50px;*/		
+    font-weight: bold;
 }
 
 form input {
@@ -50,7 +53,7 @@ form input {
 p {
 	font-family: 微软雅黑;
 	font-size: 48px;
-	color: white;
+	color: deepskyblue;
 	text-align: center;
 	padding: 60px;
 }
@@ -95,8 +98,9 @@ form input:hover {
 	height: 20px;
 	font-size: 18px;
 	text-align: center;
-	margin: auto;
+	margin:20px auto;
 	color: blue;
+	position: relative;
 }
 
 a {

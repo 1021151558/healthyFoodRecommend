@@ -1,6 +1,8 @@
 var ali = document.getElementById("liebiao").getElementsByTagName("li");
 
-var idList = new Array("homePage", "delicious","peopleType","myMenu", "dietitian", "shuoshuo", "myCollection");
+var idList = new Array("homePage", "delicious", "peopleType", "myMenu", "dietitian", "shuoshuo", "myCollection");
+
+
 
 for (var i = 0; i < ali.length; i++) {
 
@@ -12,7 +14,7 @@ for (var i = 0; i < ali.length; i++) {
                 document.getElementById(idList[j]).style.display = "block";
 
 
-                if (idList[j]=="peopleType"){
+                if (idList[j] == "peopleType") {
                     $.ajax({
                         type: "POST",
                         url: "/user/meirong?pageNum=0&foodTable=" + pList[0],
@@ -23,7 +25,7 @@ for (var i = 0; i < ali.length; i++) {
                             $("#personNowName").text(pList[0]);
                             $("#personNowName").hide();
                             $(data.content).each(function (index, food) {
-                                var row ="<div class='img'>" + "<a target='_blank' href='/user/foodMethod?foodId=" +food.id+ "'><img src='" + food.foodIcon + "'/></a>"
+                                var row = "<div class='img'>" + "<a target='_blank' href='/user/foodMethod?foodId=" + food.id + "'><img src='" + food.foodIcon + "'/></a>"
                                     + "<span class='foodWork'>" + food.foodWork + "</span>"
                                     + "<span class='foodName'>" + food.foodName + "</span><br>"
                                     + "<span class='foodPopularity'>" + food.foodPopularity + "</span><br>"
@@ -37,7 +39,7 @@ for (var i = 0; i < ali.length; i++) {
                                 if ($(this).val() == "点击收藏") {
                                     $.ajax({
                                         type: "POST",
-                                        url: "/user/saveFood?foodId=" + id+"&nicheng="+nicheng,
+                                        url: "/user/saveFood?foodId=" + id + "&nicheng=" + nicheng,
                                         dataType: "json",
                                         success: function (data) {
 
@@ -56,11 +58,10 @@ for (var i = 0; i < ali.length; i++) {
                 }
 
 
-
-                if (idList[j] == "myMenu"){
+                if (idList[j] == "myMenu") {
                     $.ajax({
                         type: "POST",
-                        url: "/user/meirong?pageNum=0&foodTable=" + iList[0] ,
+                        url: "/user/meirong?pageNum=0&foodTable=" + iList[0],
                         dataType: "json",
                         success: function (data) {
                             var tt = $("#meirong1");
@@ -68,7 +69,7 @@ for (var i = 0; i < ali.length; i++) {
                             $("#nowName").text(iList[0]);
                             $("#nowName").hide();
                             $(data.content).each(function (index, food) {
-                                var row ="<div class='img'>" + "<a target='_blank' href='/user/foodMethod?foodId=" +food.id+ "'><img src='" + food.foodIcon + "'/></a>"
+                                var row = "<div class='img'>" + "<a target='_blank' href='/user/foodMethod?foodId=" + food.id + "'><img src='" + food.foodIcon + "'/></a>"
                                     + "<span class='foodWork'>" + food.foodWork + "</span>"
                                     + "<span class='foodName'>" + food.foodName + "</span><br>"
                                     + "<span class='foodPopularity'>" + food.foodPopularity + "</span><br>"
@@ -82,7 +83,7 @@ for (var i = 0; i < ali.length; i++) {
                                 if ($(this).val() == "点击收藏") {
                                     $.ajax({
                                         type: "POST",
-                                        url: "/user/saveFood?foodId=" + id+"&nicheng="+nicheng,
+                                        url: "/user/saveFood?foodId=" + id + "&nicheng=" + nicheng,
                                         dataType: "json",
                                         success: function (data) {
 
@@ -101,35 +102,69 @@ for (var i = 0; i < ali.length; i++) {
                 }
 
 
+
                 if (idList[j] == "myCollection") {
+
+
+
                     $.ajax({
                         type: "POST",
-                        url: "/user/myCollection?pageNum=0&nicheng="+$("#userNicheng").text(),
+                        url: "/user/myCollection?pageNum=0&nicheng=" + $("#userNicheng").text(),
                         dataType: "json",
                         success: function (data) {
-                            var collectionFood = $("#collectionFood");
-                            collectionFood.html("");
-                            $(data.content).each(function (index, food) {
-                                var row = "<div class='img'>" + "<a target='_blank' href='/user/foodMethod?foodId=" +food.id+ "'><img src='" + food.foodIcon + "'/></a>"
-                                    + "<span class='foodWork'>" + food.foodWork + "</span>"
-                                    + "<span class='foodName'>" + food.foodName + "</span><br>"
-                                    + "<span class='foodPopularity'>" + food.foodPopularity + "</span><br>"
-                                    + "<input type='button' class='foodCollection' value='已收藏' name='" + food.id + "'/> "
-                                    + "</div>";
-                                collectionFood.append(row);
-                            });
-                            var nowPage = $("#collectionNowPage");
-                            nowPage.text(data.number + 1);
-                            var totalPages = $("#collectionAllPages");
-                            totalPages.text(data.totalPages);
+                            refreshCollection(data);
+
                         }
                     });
+
+
+                    function refreshCollection(data) {
+
+
+                        var collectionFood = $("#collectionFood");
+                        collectionFood.html("");
+                        $(data.content).each(function (index, food) {
+                            var row = "<div class='img'>" + "<a target='_blank' href='/user/foodMethod?foodId=" + food.id + "'><img src='" + food.foodIcon + "'/></a>"
+                                + "<span class='foodWork'>" + food.foodWork + "</span>"
+                                + "<span class='foodName'>" + food.foodName + "</span><br>"
+                                + "<span class='foodPopularity'>" + food.foodPopularity + "</span><br>"
+                                + "<input type='button' class='foodCollection' value='删除' name='" + food.id + "'/> "
+                                + "</div>";
+                            collectionFood.append(row);
+                        });
+
+                        $(".foodCollection").click(function () {
+
+                            var id = $(this).attr("name");
+                            console.log(id);
+                            var nicheng = $("#userNicheng").text();
+                            if ($(this).val() == "删除") {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/user/deleteFood?foodId=" + id + "&nicheng=" + nicheng+"&pageNum=0",
+                                    dataType: "json",
+                                    success: function (data) {
+                                        refreshCollection(data);
+
+                                    }
+                                });
+
+
+                            }
+                        });
+
+                        var nowPage = $("#collectionNowPage");
+                        nowPage.text(data.number + 1);
+                        var totalPages = $("#collectionAllPages");
+                        totalPages.text(data.totalPages);
+
+                    }
+
                 }
-
-
 
 
             }
         }
     }
 }
+

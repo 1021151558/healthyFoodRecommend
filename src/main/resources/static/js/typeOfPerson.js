@@ -58,7 +58,7 @@ var pds = document.getElementById("personPages").getElementsByTagName("a");
 
 for (var s = 0; s < pds.length; s++) {
     pds[s].onclick = function () {
-        for (var k = 0; k < pds.length; k++) {
+        for (var k = 0; k < pds.length ; k++) {
             if (pds[k] == this) {
                 var num = 0;
                 var nowPage = parseInt($("#personNowPage").text()) - 1;

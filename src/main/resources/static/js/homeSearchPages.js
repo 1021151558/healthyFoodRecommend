@@ -1,8 +1,7 @@
 var ts = document.getElementById("homeSearchPages").getElementsByTagName("a");
-
-for (var s = 0; s < ts.length; s++) {
+for (var s = 0; s < ts.length ; s++) {
     ts[s].onclick = function () {
-        for (var k = 0; k < ts.length; k++) {
+        for (var k = 0; k < ts.length ; k++) {
             if (ts[k] == this) {
                 var num = 0;
                 var nowPage = parseInt($("#homeSearchNowPage").text()) - 1;

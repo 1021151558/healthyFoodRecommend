@@ -56,7 +56,7 @@ for (var i = 0; i < uli.length; i++) {
 
 var tds = document.getElementById("meirongPages").getElementsByTagName("a");
 
-for (var s = 0; s < tds.length; s++) {
+for (var s = 0; s < tds.length ; s++) {
     tds[s].onclick = function () {
         for (var k = 0; k < tds.length; k++) {
             if (tds[k] == this) {
